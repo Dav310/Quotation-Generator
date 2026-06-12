@@ -35,7 +35,8 @@ export interface QuotationData {
 
 export interface QuotationMeta {
   clientName: string;
-  repName: string;
+  repName1: string;
+  repName2: string;
   gstin: string;
   quotationNumber: string;
   date: string;

@@ -10,7 +10,8 @@ export default function EditableFieldsSidebar() {
 
   const fields: { key: keyof QuotationMeta; label: string }[] = [
     { key: "clientName", label: "Client Name" },
-    { key: "repName", label: "Sales Representative" },
+    { key: "repName1", label: "Rep 1" },
+    { key: "repName2", label: "Rep 2" },
     { key: "gstin", label: "GSTIN" },
     { key: "quotationNumber", label: "Quotation No." },
     { key: "date", label: "Date" },

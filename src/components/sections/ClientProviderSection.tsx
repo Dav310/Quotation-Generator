@@ -18,8 +18,8 @@ export const ClientProviderSection: React.FC = () => {
           </div>
           <div className="p-4 leading-loose bg-[#fcfdfd]">
             <p className="font-bold text-sm mb-1">{meta.clientName}</p>
-            <p><strong>Rep 1:</strong> {meta.repName}</p>
-            <p><strong>Rep 2:</strong> Director</p>
+            <p><strong>Rep 1:</strong> {meta.repName1}</p>
+            <p><strong>Rep 2:</strong> {meta.repName2 || "Director"}</p>
             <p><strong>GSTIN:</strong> {meta.gstin}</p>
           </div>
         </div>

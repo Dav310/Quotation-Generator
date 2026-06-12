@@ -22,12 +22,13 @@ const defaultBlankQuotation: QuotationData = {
 
 export default function Home() {
   const [initialMeta] = useState<QuotationMeta>({
-    clientName: "ABC Corp",
-    repName: "Rahul Sharma",
-    gstin: "27AADCB2230M1Z2",
-    quotationNumber: "QT-2026-001",
+    clientName: "",
+    repName1: "",
+    repName2: "",
+    gstin: "",
+    quotationNumber: "",
     date: new Date().toLocaleDateString('en-IN'),
-    validity: "15 Days",
+    validity: "",
     providers: "iTechQu Solutions Pvt Ltd",
   });
 
