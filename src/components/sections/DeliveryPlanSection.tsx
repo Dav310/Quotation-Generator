@@ -27,7 +27,7 @@ export const DeliveryPlanSection: React.FC = () => {
         <tbody>
           {localData.deliveryPlan.map((plan, idx) => (
             <tr key={idx} className="quo-table-row relative group/row">
-              <td className="py-2 px-3 align-top border-b quo-border-bottom-primary font-bold quo-primary-text">
+              <td className="py-2 px-3 align-top border-b quo-border-bottom-primary font-bold quo-primary-text bg-blue-50/50">
                 <SeamlessInput
                   value={plan.week}
                   onChange={(v: string) => {

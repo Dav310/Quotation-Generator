@@ -12,7 +12,9 @@ import {
 import {
   AutoAwesome as AutoAwesomeIcon,
   Send as SendIcon,
+  UploadFile as UploadFileIcon,
 } from "@mui/icons-material";
+import { useQuotation } from "@/context/QuotationContext";
 
 interface AIPromptFormProps {
   onGenerate: (prompt: string) => void;
@@ -23,16 +25,52 @@ export default function AIPromptForm({
   onGenerate,
   isLoading,
 }: AIPromptFormProps) {
+  const { setLocalData } = useQuotation();
   const [prompt, setPrompt] = useState(
     "Build a school management system with fees, attendance, and SMS alerts, budget ₹80,000, 6 weeks",
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (prompt.trim()) {
       onGenerate(prompt);
       setIsOpen(false);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/v1/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to process the uploaded file.");
+      }
+
+      const data = await res.json();
+      if (setLocalData) {
+        setLocalData(data);
+      }
+      setIsOpen(false);
+    } catch (error: any) {
+      console.error(error);
+      alert(`Error uploading file: ${error.message}`);
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -102,19 +140,33 @@ export default function AIPromptForm({
             }}
           />
 
-          <div className="flex justify-end mt-3">
-            <Button
-              type="submit"
-              variant="contained"
+          <div className="flex justify-between items-center mt-3">
+            <div>
+              <input
+                type="file"
+                accept=".pdf,.xls,.xlsx"
+                hidden
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+              />
+              <Button
+                variant="outlined"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                startIcon={isUploading ? <CircularProgress size={20} color="inherit" /> : <UploadFileIcon fontSize="small" />}
+                className="rounded-xl px-4 py-2 border-gray-300 text-gray-700 hover:bg-gray-50 normal-case font-medium"
+              >
+                {isUploading ? "Uploading..." : "Import PDF/Excel"}
+              </Button>
+            </div>
+            <Button 
+              type="submit" 
+              variant="contained" 
               disabled={isLoading || !prompt.trim()}
               endIcon={isLoading ? undefined : <SendIcon fontSize="small" />}
               className="quo-btn-primary px-8 py-2.5 normal-case"
             >
-              {isLoading ? (
-                <CircularProgress size={24} color="inherit" />
-              ) : (
-                "Generate"
-              )}
+              {isLoading ? <CircularProgress size={24} color="inherit" /> : "Generate"}
             </Button>
           </div>
         </Paper>
