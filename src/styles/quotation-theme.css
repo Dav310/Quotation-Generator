@@ -1,0 +1,118 @@
+/* Custom CSS for Quotation Theme */
+:root {
+  --quo-primary: #195fa9;
+  --quo-primary-light: #eff6ff; 
+  --quo-primary-hover: #15508a;
+  --quo-border-light: rgba(25, 95, 169, 0.2);
+  --quo-text-dark: #1f2937;
+  --quo-text-muted: #6b7280;
+}
+
+.quo-primary-bg {
+  background-color: var(--quo-primary) !important;
+  color: white !important;
+}
+
+.quo-primary-bg-light {
+  background-color: var(--quo-primary-light);
+}
+
+.quo-primary-text {
+  color: var(--quo-primary) !important;
+}
+
+.quo-border-primary {
+  border-color: var(--quo-border-light) !important;
+}
+
+.quo-border-bottom-primary {
+  border-bottom-color: var(--quo-border-light) !important;
+}
+
+.quo-table-header {
+  background-color: var(--quo-primary);
+  color: white;
+}
+
+.quo-table-row:nth-child(even) {
+  background-color: #fcfdfd;
+}
+
+.quo-table-row:nth-child(odd) {
+  background-color: white;
+}
+
+.quo-seamless-input {
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+.quo-seamless-input:hover {
+  background-color: var(--quo-primary-light);
+}
+.quo-seamless-input:focus-within {
+  background-color: white;
+  box-shadow: 0 0 0 1px #60a5fa;
+}
+
+/* Sidebar and Form Card Styles */
+.quo-sidebar-card,
+.quo-form-card {
+  background-color: white;
+  border: 1px solid #f3f4f6; /* border-gray-100 */
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
+
+.quo-form-card {
+  transition: box-shadow 0.3s ease;
+}
+.quo-form-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* hover:shadow-md */
+}
+
+.quo-icon-circle {
+  background-color: var(--quo-primary-light);
+  color: var(--quo-primary);
+  border-radius: 9999px; /* rounded-full */
+}
+
+.quo-title-text {
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+}
+
+.quo-text-muted {
+  color: #6b7280; /* text-gray-500 */
+}
+
+.quo-btn-primary {
+  background: linear-gradient(to right, #2563eb, #4f46e5); /* from-blue-600 to-indigo-600 */
+  color: white;
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-weight: 600; /* font-semibold */
+  transition: all 0.2s ease;
+}
+.quo-btn-primary:hover {
+  background: linear-gradient(to right, #1d4ed8, #4338ca); /* hover:from-blue-700 hover:to-indigo-700 */
+  transform: translateY(-0.125rem); /* hover:-translate-y-0.5 */
+}
+
+.quo-gradient-bar {
+  background: linear-gradient(to right, #3b82f6, #6366f1, #a855f7); /* from-blue-500 via-indigo-500 to-purple-500 */
+}
+
+.quo-icon-purple {
+  color: #a855f7; /* text-purple-500 */
+}
+
+.quo-loading-text {
+  color: #2563eb; /* text-blue-600 */
+  font-weight: 500;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
