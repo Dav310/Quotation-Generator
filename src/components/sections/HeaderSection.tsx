@@ -22,19 +22,19 @@ export const HeaderSection: React.FC = () => {
         <table className="text-xs ml-auto">
           <tbody>
             <tr>
-              <td className="pr-4 text-gray-600 text-right">Quotation No.</td>
+              <td className="pr-4 text-gray-600 text-right">Quotation No. :</td>
               <td className="font-bold text-gray-900">{meta.quotationNumber}</td>
             </tr>
             <tr>
-              <td className="pr-4 text-gray-600 text-right">Date</td>
+              <td className="pr-4 text-gray-600 text-right">Date :</td>
               <td className="font-bold text-gray-900">{meta.date}</td>
             </tr>
             <tr>
-              <td className="pr-4 text-gray-600 text-right">Validity</td>
+              <td className="pr-4 text-gray-600 text-right">Validity :</td>
               <td className="font-bold text-gray-900">{meta.validity}</td>
             </tr>
             <tr>
-              <td className="pr-4 text-gray-600 text-right">Currency</td>
+              <td className="pr-4 text-gray-600 text-right">Currency :</td>
               <td className="font-bold text-gray-900">INR (Indian Rupees)</td>
             </tr>
           </tbody>

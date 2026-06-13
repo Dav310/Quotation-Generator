@@ -13,26 +13,36 @@ const defaultBlankQuotation: QuotationData = {
   modules: [{ name: "Module 1", description: "Module description", cost: 0 }],
   deliveryPlan: [{ week: "Week 1", tasks: "Initial tasks" }],
   deliverables: ["Deliverable 1"],
-  paymentMilestones: [{ percentage: 100, amount: 0, description: "Full Payment" }],
+  paymentMilestones: [
+    { percentage: 100, amount: 0, description: "Full Payment" },
+  ],
   assumptions: ["Assumption 1"],
-  exclusions: ["Exclusion 1"],
   totalCost: 0,
-  serviceProviders: [{ name: "Er. Hemant Chandra", designation: "Founder" }, { name: "Er. Avinash Chandraker", designation: "Co-Founder" }]
+  serviceProviders: [
+    { name: "Er. Hemant Chandra", designation: "Founder" },
+    { name: "Er. Avinash Chandraker", designation: "Co-Founder" },
+  ],
 };
 
 export default function Home() {
-  const [initialMeta] = useState<QuotationMeta>({
-    clientName: "",
+  const [initialMeta, setInitialMeta] = useState<QuotationMeta>({
+    companyName: "",
+    clientDesignation: "",
     repName1: "",
     repName2: "",
     gstin: "",
     quotationNumber: "",
-    date: new Date().toLocaleDateString('en-IN'),
+    date: new Date().toLocaleDateString("en-IN"),
     validity: "",
-    providers: "iTechQu Solutions Pvt Ltd",
+    providers1: "",
+    providers2: "",
+    trade: "",
+    type: "",
   });
 
-  const [quotationData, setQuotationData] = useState<QuotationData>(defaultBlankQuotation);
+  const [quotationData, setQuotationData] = useState<QuotationData>(
+    defaultBlankQuotation,
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerate = async (prompt: string) => {
@@ -41,16 +51,25 @@ export default function Home() {
       const res = await fetch("/api/v1/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify({ prompt }),
       });
-      
+
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.error || "Failed to connect to the generation server.");
+        throw new Error(
+          errorData.error || "Failed to connect to the generation server.",
+        );
       }
-      
-      const data = await res.json();
-      setQuotationData(data);
+
+      const responseData = await res.json();
+      if (responseData.data) {
+        setQuotationData(responseData.data);
+      } else {
+        setQuotationData(responseData);
+      }
+      if (responseData.meta) {
+        setInitialMeta(responseData.meta);
+      }
     } catch (error: any) {
       console.error(error);
       alert(`Error generating quotation: ${error.message}`);
@@ -63,7 +82,6 @@ export default function Home() {
     <QuotationProvider initialData={quotationData} initialMeta={initialMeta}>
       <main className="min-h-screen bg-slate-50 text-gray-900 p-4 md:p-8 print:p-0 print:bg-white font-sans selection:bg-blue-100 selection:text-blue-900">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 print:block print:max-w-none">
-          
           {/* Left Sidebar */}
           <div className="lg:col-span-3 space-y-6 print:hidden">
             <div className="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col items-start justify-center">
@@ -84,7 +102,6 @@ export default function Home() {
             </div>
             <QuotationDocument />
           </div>
-
         </div>
       </main>
     </QuotationProvider>

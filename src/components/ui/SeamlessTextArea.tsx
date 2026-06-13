@@ -26,6 +26,7 @@ export const SeamlessTextArea: React.FC<SeamlessTextAreaProps> = ({
           fontWeight: bold ? "bold" : "normal",
           padding: "2px 4px",
           lineHeight: "1.5",
+          fontSize:"12px",
         },
       }}
       className={`quo-seamless-input ${className}`}

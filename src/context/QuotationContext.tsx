@@ -5,6 +5,7 @@ import { QuotationData, QuotationMeta, QuotationModule, PaymentMilestone } from 
 
 interface QuotationContextType {
   meta: QuotationMeta;
+  setMeta: React.Dispatch<React.SetStateAction<QuotationMeta>>;
   updateMeta: (field: keyof QuotationMeta, value: string) => void;
   localData: QuotationData | null;
   setLocalData: React.Dispatch<React.SetStateAction<QuotationData | null>>;
@@ -28,6 +29,12 @@ export const QuotationProvider: React.FC<{ children: React.ReactNode; initialDat
       setLocalData(JSON.parse(JSON.stringify(initialData)));
     }
   }, [initialData]);
+
+  useEffect(() => {
+    if (initialMeta) {
+      setMeta(JSON.parse(JSON.stringify(initialMeta)));
+    }
+  }, [initialMeta]);
 
   const updateMeta = (field: keyof QuotationMeta, value: string) => {
     setMeta(prev => ({ ...prev, [field]: value }));
@@ -99,7 +106,7 @@ export const QuotationProvider: React.FC<{ children: React.ReactNode; initialDat
 
   return (
     <QuotationContext.Provider value={{
-      meta, updateMeta, localData, setLocalData, updateModule, updateMilestone, updateLocalData, addArrayItem, removeArrayItem, formatCurrency, numberToWords
+      meta, setMeta, updateMeta, localData, setLocalData, updateModule, updateMilestone, updateLocalData, addArrayItem, removeArrayItem, formatCurrency, numberToWords
     }}>
       {children}
     </QuotationContext.Provider>

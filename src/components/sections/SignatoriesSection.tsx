@@ -6,7 +6,14 @@ import { SeamlessInput } from "../ui/SeamlessInput";
 import { RemoveButton } from "../ui/ActionButtons";
 
 export const SignatoriesSection: React.FC = () => {
-  const { meta, localData, setLocalData, addArrayItem, removeArrayItem } = useQuotation();
+  const {
+    meta,
+    updateMeta,
+    localData,
+    setLocalData,
+    addArrayItem,
+    removeArrayItem,
+  } = useQuotation();
 
   if (!localData) return null;
 
@@ -30,8 +37,8 @@ export const SignatoriesSection: React.FC = () => {
             <span>CLIENT — </span>
             <span className="w-1/2">
               <SeamlessInput
-                value={meta.clientName}
-                onChange={() => {}} 
+                value={meta.companyName}
+                onChange={() => {}}
                 className="font-bold uppercase quo-primary-text"
               />
             </span>
@@ -40,12 +47,18 @@ export const SignatoriesSection: React.FC = () => {
             <div className="flex border-b border-gray-200 border-dashed pb-1">
               <span className="w-32 text-gray-500 text-sm">Name</span>
               <span className="flex-1 font-medium text-sm">
-                {meta.clientName}
+                {meta.companyName}
               </span>
             </div>
             <div className="flex border-b border-gray-200 border-dashed pb-1">
               <span className="w-32 text-gray-500 text-sm">Designation</span>
-              <span className="flex-1 font-medium text-sm">CEO</span>
+              <span className="flex-1 font-medium text-sm">
+                <SeamlessInput
+                  value={meta.clientDesignation}
+                  onChange={(v: string) => updateMeta("clientDesignation", v)}
+                  className="font-medium"
+                />
+              </span>
             </div>
             <div className="flex border-b border-gray-200 border-dashed pb-1 mt-6">
               <span className="w-32 text-gray-500 text-sm">Signature</span>
@@ -59,44 +72,52 @@ export const SignatoriesSection: React.FC = () => {
         </div>
 
         {/* Dynamic Service Providers Grid */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {localData.serviceProviders?.map((provider, idx) => (
-            <div key={`prov-${idx}`} className="border border-gray-200 bg-white rounded-sm p-5 shadow-sm relative group/row">
-              <RemoveButton onClick={() => removeArrayItem("serviceProviders", idx)} className="right-4 top-4" />
+            <div
+              key={`prov-${idx}`}
+              className="border border-gray-200 bg-white rounded-sm p-5 shadow-sm relative group/row"
+            >
+              <RemoveButton
+                onClick={() => removeArrayItem("serviceProviders", idx)}
+                className="right-4 top-4"
+              />
               <div className="quo-primary-text font-bold text-xs uppercase mb-4 tracking-wider flex items-center gap-2">
-                <span>SERVICE PROVIDER — </span>
-                <span className="w-1/2">
-                  <SeamlessInput
-                    value={meta.providers?.split(" ")[0] || "PROVIDER"}
-                    onChange={() => {}}
-                    className="font-bold uppercase quo-primary-text"
-                  />
-                </span>
+                <span>SERVICE PROVIDER {idx + 1} —</span>
+                
               </div>
               <div className="space-y-4">
                 <div className="flex border-b border-gray-200 border-dashed pb-1">
                   <span className="w-24 text-gray-500 text-sm pt-1">Name</span>
                   <span className="flex-1 font-medium text-sm">
-                    <SeamlessInput 
-                      value={provider.name} 
+                    <SeamlessInput
+                      value={provider.name}
                       onChange={(v: string) => {
                         const newProv = [...localData.serviceProviders];
                         newProv[idx].name = v;
-                        setLocalData({...localData, serviceProviders: newProv});
-                      }} 
+                        setLocalData({
+                          ...localData,
+                          serviceProviders: newProv,
+                        });
+                      }}
                     />
                   </span>
                 </div>
                 <div className="flex border-b border-gray-200 border-dashed pb-1">
-                  <span className="w-24 text-gray-500 text-sm pt-1">Designation</span>
+                  <span className="w-24 text-gray-500 text-sm pt-1">
+                    Designation
+                  </span>
                   <span className="flex-1 font-medium text-sm">
-                    <SeamlessInput 
-                      value={provider.designation} 
+                    <SeamlessInput
+                      value={provider.designation}
                       onChange={(v: string) => {
                         const newProv = [...localData.serviceProviders];
                         newProv[idx].designation = v;
-                        setLocalData({...localData, serviceProviders: newProv});
-                      }} 
+                        setLocalData({
+                          ...localData,
+                          serviceProviders: newProv,
+                        });
+                      }}
                     />
                   </span>
                 </div>

@@ -25,7 +25,7 @@ export default function AIPromptForm({
   onGenerate,
   isLoading,
 }: AIPromptFormProps) {
-  const { setLocalData } = useQuotation();
+  const { setLocalData, setMeta } = useQuotation();
   const [prompt, setPrompt] = useState(
     "Build a school management system with fees, attendance, and SMS alerts, budget ₹80,000, 6 weeks",
   );
@@ -60,9 +60,16 @@ export default function AIPromptForm({
         throw new Error(errorData.error || "Failed to process the uploaded file.");
       }
 
-      const data = await res.json();
-      if (setLocalData) {
-        setLocalData(data);
+      const responseData = await res.json();
+      if (setLocalData && responseData.data) {
+        setLocalData(responseData.data);
+      } else if (setLocalData && !responseData.data) {
+        // Fallback if the AI messes up the wrapper
+        setLocalData(responseData);
+      }
+      
+      if (setMeta && responseData.meta) {
+        setMeta(responseData.meta);
       }
       setIsOpen(false);
     } catch (error: any) {

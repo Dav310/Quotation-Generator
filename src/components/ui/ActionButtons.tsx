@@ -11,7 +11,7 @@ export const RemoveButton: React.FC<RemoveButtonProps> = ({ onClick, className =
   return (
     <button
       onClick={onClick}
-      className={`print:hidden absolute text-red-500 hover:text-red-700 font-bold ${className}`}
+      className={`print:hidden absolute text-red-500 hover:text-red-700 font-bold text-lg  cursor-pointer ${className}`}
       title={title}
     >
       ×

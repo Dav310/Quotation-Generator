@@ -34,12 +34,16 @@ export interface QuotationData {
 }
 
 export interface QuotationMeta {
-  clientName: string;
+  companyName: string;
+  clientDesignation: string;
   repName1: string;
   repName2: string;
   gstin: string;
   quotationNumber: string;
   date: string;
   validity: string;
-  providers: string;
+  providers1: string;
+  providers2: string;
+  trade: string;
+  type: string;
 }

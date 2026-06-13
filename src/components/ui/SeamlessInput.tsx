@@ -35,6 +35,7 @@ export const SeamlessInput: React.FC<SeamlessInputProps> = ({
           textAlign: align,
           fontWeight: bold ? "bold" : "normal",
           padding: "2px 4px",
+          fontSize:"14px"
         },
       }}
       className={`quo-seamless-input ${className}`}
