@@ -28,7 +28,6 @@ export interface QuotationData {
   deliverables: string[];
   paymentMilestones: PaymentMilestone[];
   assumptions: string[];
-  exclusions: string[];
   totalCost: number;
   serviceProviders: ServiceProviderSignatory[];
 }
